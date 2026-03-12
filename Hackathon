@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Activity Tracker 2026</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background-color:#f4f6f9;
+margin:0;
+padding:0;
+text-align:center;
+}
+
+header{
+background-color:#2c3e50;
+color:white;
+padding:20px;
+}
+
+.container{
+width:80%;
+margin:auto;
+margin-top:20px;
+}
+
+.activity{
+background:white;
+padding:15px;
+margin:10px;
+border-radius:8px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+button{
+padding:8px 12px;
+background-color:#28a745;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background-color:#218838;
+}
+
+.completed{
+text-decoration:line-through;
+color:gray;
+}
+
+.progress{
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Student Activity Tracker</h1>
+<p>Track and manage your learning activities</p>
+</header>
+
+<div class="container">
+
+<h2>Activity List</h2>
+
+<div id="activityList"></div>
+
+<div class="progress" id="progress"></div>
+
+</div>
+
+<script>
+
+let activities = [
+
+{
+name:"HTML Basics",
+desc:"Learn the basic structure of HTML",
+completed:false
+},
+
+{
+name:"CSS Styling",
+desc:"Practice styling using CSS",
+completed:false
+},
+
+{
+name:"JavaScript Basics",
+desc:"Understand variables and functions",
+completed:false
+},
+
+{
+name:"Responsive Design",
+desc:"Create mobile friendly layouts",
+completed:false
+},
+
+{
+name:"Web Forms",
+desc:"Build simple input forms",
+completed:false
+},
+
+{
+name:"DOM Manipulation",
+desc:"Learn DOM interaction using JavaScript",
+completed:false
+}
+
+];
+
+function showActivities(){
+
+let list = document.getElementById("activityList");
+list.innerHTML="";
+
+activities.forEach((activity,index)=>{
+
+let div = document.createElement("div");
+div.className="activity";
+
+let text = document.createElement("div");
+
+text.innerHTML="<b>"+activity.name+"</b><br>"+activity.desc;
+
+if(activity.completed){
+text.classList.add("completed");
+}
+
+let btn = document.createElement("button");
+
+btn.innerText = activity.completed ? "Completed" : "Mark Completed";
+
+btn.onclick = function(){
+activities[index].completed=true;
+showActivities();
+}
+
+div.appendChild(text);
+div.appendChild(btn);
+
+list.appendChild(div);
+
+});
+
+updateProgress();
+}
+
+function updateProgress(){
+
+let completedCount = activities.filter(a=>a.completed).length;
+
+document.getElementById("progress").innerText =
+completedCount + " out of " + activities.length + " activities completed";
+
+}
+
+showActivities();
+
+</script>
+
+</body>
+</html>
